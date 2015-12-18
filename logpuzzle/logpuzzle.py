@@ -25,16 +25,20 @@ def read_urls(filename):
     extracting the hostname from the filename itself.
     Screens out duplicate urls and returns the urls sorted into
     increasing order."""
-    url_list = []
+    url_list = set()
     prog = re.compile("(?<=GET\s)/\S+puzzle\S+\.(jpg|jpeg)")
-    prog_ip = re.compile("(\d+|\.)+")
+    prog_name = re.compile("(?<=_)(\S)+").search(filename).group()
     with open(filename, "r+") as f:
         for line in f:
             result = prog.search(line)
             if result:
-                 url_list.append("http://"+ prog_ip.search(line).group() + result.group())
+                url = "http://"+ prog_name + result.group()
+                if  not url in url_list:
+                    url_list.add(url)
 
-    return url_list
+
+
+    return sorted(url_list)
 
             # +++your code here+++
 
