@@ -32,15 +32,13 @@ def read_urls(filename):
         for line in f:
             result = prog.search(line)
             if result:
-                url = "http://"+ prog_name + result.group()
-                if  not url in url_list:
+                url = "http://" + prog_name + result.group()
+                if not url in url_list:
                     url_list.add(url)
-
-
 
     return sorted(url_list)
 
-            # +++your code here+++
+    # +++your code here+++
 
 
 def download_images(img_urls, dest_dir):
@@ -52,7 +50,6 @@ def download_images(img_urls, dest_dir):
     Creates the directory if necessary.
     """
     for url in img_urls:
-
         prog = re.compile("\w+.(jpg|jpeg)")
         file_name = prog.search(url).group()
         try:
@@ -60,10 +57,7 @@ def download_images(img_urls, dest_dir):
             with open(os.path.join(dest_dir, file_name), 'b+w') as f:
                 f.write(img.read())
         except URLError as error:
-            print("erro baixando a url "+ url + "\n " + str(error))
-
-
-    # +++your code here+++
+            print("erro baixando a url " + url + "\n " + str(error))
 
 
 def main():
