@@ -6,6 +6,9 @@
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
 
+
+import re
+
 """Wordcount exercise
 Google's Python class
 
@@ -45,6 +48,32 @@ import sys
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
+def print_words(filename):
+    rank = create_rank(filename)
+
+    for word, count in rank.items():
+        print(word + " count ->" + str(count))
+
+
+def print_top(filename):
+    rank = create_rank(filename)
+    for index, item in enumerate(sorted(rank.items(), key=lambda it: it[1], reverse=True)):
+        if index < 20:
+            print(item[0] + " count->" + str(item[1]))
+
+
+def create_rank(filename):
+    f = open(filename, "r")
+    text = f.read()
+    match = re.compile("\w+")
+    unique_words = set()
+    all_words = match.findall(text)
+    for m in match.findall(text):
+        if m not in unique_words:
+            unique_words.add(m)
+    rank = dict((w, all_words.count(w)) for w in unique_words)
+    return rank
+
 
 ###
 

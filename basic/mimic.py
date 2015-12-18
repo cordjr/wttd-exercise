@@ -47,7 +47,12 @@ import sys
 
 def mimic_dict(filename):
   """Returns mimic dict mapping each word to list of words which follow it."""
-  # +++your code here+++
+  words_file = open(filename, "r")
+  words = words_file.read().split("\s")
+  word_dict = {}
+  for index , word in enumerate(words):
+
+
   return
 
 
